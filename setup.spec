@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
 Version: 2.5.34
-Release: 1
+Release: 2
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -47,7 +47,7 @@ rm -rf %{buildroot}
 %verify(not md5 size mtime) %config(noreplace) /etc/group
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
-%verify(not md5 size mtime) %config /etc/services
+%verify(not md5 size mtime) %config(noreplace) /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/aliases
 %config(noreplace) /etc/filesystems
@@ -68,6 +68,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Sep 28 2004 Rik van Riel <riel@redhat.com> 2.5.34-2
+- mark /etc/services config(noreplace) (#133683)
+
 * Thu Sep 23 2004 Bill Nottingham <notting@redhat.com> 2.5.34-1
 - add dict (#107807)
 - add cyrus services (#118832)
