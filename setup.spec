@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.27
-Release: 1.1
+Version: 2.5.31
+Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -48,6 +48,7 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
 %verify(not md5 size mtime) %config /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
+%config(noreplace) /etc/aliases
 %config(noreplace) /etc/filesystems
 %config(noreplace) /etc/host.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.allow
@@ -66,6 +67,12 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Jan 26 2004 Bill Nottingham <notting@redhat.com> 2.5.31-1
+- move /etc/aliases here
+
+* Mon Dec  8 2003 Bill Nottingham <notting@redhat.com> 2.5.30-1
+- remove stty `tput kbs` section (#91357)
+
 * Tue Sep  2 2003 Bill Nottingham <notting@redhat.com> 2.5.27-1
 - securetty should be noreplace (#103585)
 
