@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.31
-Release: 1.1
+Version: 2.5.33
+Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -18,7 +18,7 @@ setup files, such as passwd, group, and profile.
 
 %build
 # Run any sanity checks.
-./serviceslint services
+make check
 
 %install
 rm -rf %{buildroot}
@@ -34,6 +34,7 @@ chmod 0400 %{buildroot}/var/log/lastlog
 # remove unpackaged files from the buildroot
 rm -f %{buildroot}/etc/Makefile
 rm -f %{buildroot}/etc/serviceslint
+rm -f %{buildroot}/etc/uidgidlint
 rm -f %{buildroot}/etc/setup.spec
 
 %clean
@@ -67,8 +68,12 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
-* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
-- rebuilt
+* Wed May  5 2004 Nalin Dahyabhai <nalin@redhat.com> 2.5.33-1
+- fix syntax error in csh.cshrc
+
+* Tue May  4 2004 Bill Nottingham <notting@redhat.com> 2.5.32-1
+- set MAIL in csh.cshrc (#115376)
+- fix inputrc check in csh.login (#115073)
 
 * Mon Jan 26 2004 Bill Nottingham <notting@redhat.com> 2.5.31-1
 - move /etc/aliases here
