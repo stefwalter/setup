@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.5
+Version: 2.5.6
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -23,6 +23,8 @@ cp -ar * %{buildroot}/etc
 rm -f %{buildroot}/etc/uidgid
 mkdir -p %{buildroot}/var/log
 cp /dev/null %{buildroot}/var/log/lastlog
+touch %{buildroot}/etc/{shadow,gshadow}
+chmod 0400 %{buildroot}/etc/{shadow,gshadow}
 
 %clean
 rm -rf %{buildroot}
@@ -32,6 +34,8 @@ rm -rf %{buildroot}
 %doc uidgid
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
+%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
+%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
 %verify(not md5 size mtime) %config /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/filesystems
@@ -52,6 +56,10 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Aug 20 2001 Bill Nottingham <notting@redhat.com>
+- change FTP user's home dir to /var/ftp (#52091)
+- %%ghost /etc/shadow, /etc/gshadow
+
 * Fri Aug 17 2001 Bill Nottingham <notting@redhat.com>
 - add /etc/shells to filelist (#51813)
 
