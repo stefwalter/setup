@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.20
+Version: 2.5.25
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -30,6 +30,11 @@ touch %{buildroot}/etc/{shadow,gshadow}
 touch %{buildroot}/var/log/lastlog
 chmod 0400 %{buildroot}/etc/{shadow,gshadow}
 chmod 0400 %{buildroot}/var/log/lastlog
+
+# remove unpackaged files from the buildroot
+rm -f %{buildroot}/etc/Makefile
+rm -f %{buildroot}/etc/serviceslint
+rm -f %{buildroot}/etc/setup.spec
 
 %clean
 rm -rf %{buildroot}
@@ -61,6 +66,21 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Feb 17 2003 Florian La Roche <Florian.LaRoche@redhat.de>
+- add "console" to /etc/securetty for mainframe
+
+* Mon Jan 20 2003 Nalin Dahyabhai <nalin@redhat.com> 2.5.24-1
+- allocate uid/gid for mgetty
+
+* Thu Jan  9 2003 Dan Walsh <dwalsh@redhat.com> 2.5.23-1
+- added PXE to /etc/services 
+
+* Wed Jan  1 2003 Bill Nottingham <notting@redhat.com> 2.5.22-1
+- remove bogus entries from inputrc (#80652)
+
+* Fri Nov 29 2002 Tim Powers <timp@redhat.com> 2.5.21-1
+- remove unpackaged files from the buildroot
+
 * Thu Aug 29 2002 Bill Nottingham <notting@redhat.com> 2.5.20-1
 - shopt -s checkwinsize everywhere
 
@@ -79,7 +99,7 @@ rm -rf %{buildroot}
 
 * Fri Jul 19 2002 Jens Petersen <petersen@redhat.com> 2.5.16-1
 - dont special case screen in /etc/bashrc, since it overrides the user's
-   screenrc title setting (#60596)
+  screenrc title setting (#60596)
 
 * Thu Jul 18 2002 Florian La Roche <Florian.LaRoche@redhat.de> 2.5.14-1
 - move home dir of "news" to /etc/news
