@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.18
+Version: 2.5.19
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -26,9 +26,10 @@ mkdir -p %{buildroot}/etc/profile.d
 cp -ar * %{buildroot}/etc
 rm -f %{buildroot}/etc/uidgid
 mkdir -p %{buildroot}/var/log
-cp /dev/null %{buildroot}/var/log/lastlog
 touch %{buildroot}/etc/{shadow,gshadow}
+touch %{buildroot}/var/log/lastlog
 chmod 0400 %{buildroot}/etc/{shadow,gshadow}
+chmod 0400 %{buildroot}/var/log/lastlog
 
 %clean
 rm -rf %{buildroot}
@@ -60,6 +61,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Wed Aug 28 2002 Preston Brown <pbrown@redhat.com> 2.5.19-1
+- fix bug #61129 (~ substitution)
+
 * Wed Aug 15 2002 Jens Petersen <petersen@redhat.com> 2.5.18-1
 - bring back the screen case in /etc/bashrc, since /etc/screenrc no
   longer sets defhstatus (#60596, #60597)
