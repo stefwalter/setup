@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.38
+Version: 2.5.39
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -68,9 +68,12 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/csh.cshrc
 %dir /etc/profile.d
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
-%config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
+%ghost %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Tue Nov 23 2004 Bill Nottingham <notting@redhat.com> 2.5.39-1
+- ghost lastlog (#139539)
+
 * Thu Nov 18 2004 Bill Nottingham <notting@redhat.com> 2.5.38-1
 - fix bash/tcsh coredump size inconsistency (#139821)
 
