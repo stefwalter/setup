@@ -1,13 +1,13 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.4.7
-Release: 2
+Version: 2.5.5
+Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-root
 BuildArchitectures: noarch
-Conflicts: initscripts < 4.26
+Conflicts: initscripts < 4.26 bash <= 2.0.4-21 
 
 %description
 The setup package contains a set of important system configuration and
@@ -41,19 +41,77 @@ rm -rf %{buildroot}
 %verify(not md5 size mtime) %config /etc/motd
 %config(noreplace) /etc/printcap
 %config /etc/inputrc
+%config(noreplace) /etc/bashrc
 %config(noreplace) /etc/profile
 %config /etc/protocols
 %attr(0600,root,root) %config(missingok) /etc/securetty
 %config(noreplace) /etc/csh.login
 %config(noreplace) /etc/csh.cshrc
 %dir /etc/profile.d
+%config(noreplace) %verify(not md5 size mtime) /etc/shells
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
-* Thu Jun 13 2001 Philip Copeland <bryce@redhat.com>
-- added in ttyS0 as a valid port for root to login
-  from when we do serial console installs
-  (request from Compaq)
+* Fri Aug 17 2001 Bill Nottingham <notting@redhat.com>
+- add /etc/shells to filelist (#51813)
+
+* Mon Aug 13 2001 Bill Nottingham <notting@redhat.com>
+- put lock in /etc/group (#51654)
+
+* Wed Aug  8 2001 Bill Nottingham <notting@redhat.com>
+- lock only needs to be a gid
+- don't set dspmbyte=euc here; do it in lang.csh, and only if necessary (#50318)
+
+* Mon Aug  6 2001 Jeff Johnson <jbj@redhat.com>
+- add lock.lock uid/gid 54 to own /var/lock directory.
+
+* Thu Jul 19 2001 Bill Nottingham <notting@redhat.com>
+- add forward/backward-word mappings (#48783)
+- add pgpkeyserver port to /etc/services (#49407)
+
+* Thu Jul 19 2001 Preston Brown <pbrown@redhat.com>
+- core files disabled by default.  Developers can enable them.
+
+* Fri Jul 13 2001 Bill Nottingham <notting@redhat.com> 2.5.1-1
+- revert news user back to no shell (#48701)
+
+* Tue Jul 10 2001 Bill Nottingham <notting@redhat.com> 2.5.0-1
+- move profile.d parsing from csh.cshrc to csh.login (#47417)
+
+* Sat Jul  7 2001 Nalin Dahyabhai <nalin@redhat.com> 2.4.15-1
+- reorder /etc/services to match comments again
+- protocol 118 is stp, not st
+- update URLs in /etc/protocols and /etc/services
+
+* Thu Jul  5 2001 Preston Brown <pbrown@redhat.com> 2.4.14-1
+- put */sbin in path if user ID is 0.
+
+* Mon Jun 25 2001 Bill Nottingham <notting@redhat.com>
+- add an entry to /etc/services for ssh X11 forwarding (#44944)
+
+* Wed Jun 13 2001 Bill Nottingham <notting@redhat.com>
+- take ttyS0 out of securetty on main tree
+
+* Tue Jun 12 2001 Philip Copeland <bryce@redhat.com>
+- added ttyS0 to securetty for serial console usage
+
+* Tue Jun 12 2001 Bill Nottingham <notting@redhat.com>
+- add rndc to /etc/services (#40265)
+- test for read bit, not execute bit, for profile.d (#35714)
+
+* Sun Jun 03 2001 Florian La Roche <Florian.LaRoche@redhat.de>
+- add "canna" entry to /etc/services
+
+* Mon May 21 2001 Bernhard Rosenkraenzer <bero@redhat.com> 2.4.10-1
+- Fix bugs #24159 and #30634 again; whoever moved bashrc from bash
+  to setup used an old version. :((
+
+* Wed May  2 2001 Preston Brown <pbrown@redhat.com> 2.4.9-1
+- bashrc moved here from bash package
+- set umask in bashrc, so it applies for ALL shells.
+
+* Fri Apr 27 2001 Preston Brown <pbrown@redhat.com> 2.4.8-1
+- /sbin/nologin for accounts that aren't "real."
 
 * Sat Apr  7 2001 Preston Brown <pbrown@redhat.com>
 - revert control-arrow forward/backward word (broken)
