@@ -1,10 +1,10 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.3.4
+Version: 2.4.7
 Release: 1
-Copyright: public domain
+License: public domain
 Group: System Environment/Base
-Source: setup-%{version}.tar.gz
+Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-root
 BuildArchitectures: noarch
 Conflicts: initscripts < 4.26
@@ -17,17 +17,22 @@ setup files, such as passwd, group, and profile.
 %setup -q
 
 %install
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/etc/profile.d
-cp -ar * $RPM_BUILD_ROOT/etc
-mkdir -p $RPM_BUILD_ROOT/var/log
-cp /dev/null $RPM_BUILD_ROOT/var/log/lastlog
+rm -rf %{buildroot}
+mkdir -p %{buildroot}/etc/profile.d
+cp -ar * %{buildroot}/etc
+rm -f %{buildroot}/etc/uidgid
+mkdir -p %{buildroot}/var/log
+cp /dev/null %{buildroot}/var/log/lastlog
+
+# the AS/400 has to log in on /dev/console
+echo console >> %{buildroot}/etc/securetty
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
+%doc uidgid
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
 %verify(not md5 size mtime) %config /etc/services
@@ -48,6 +53,53 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Sat Apr  7 2001 Preston Brown <pbrown@redhat.com>
+- revert control-arrow forward/backward word (broken)
+
+* Tue Mar 27 2001 Preston Brown <pbrown@redhat.com>
+- fix japanese input with tcsh (#33211)
+
+* Tue Mar  6 2001 Bill Nottingham <notting@redhat.com>
+- fix some weirdness with rxvt (#30799)
+
+* Wed Feb 28 2001 Bill Nottingham <notting@redhat.com>
+- add SKK input method (#29759)
+
+* Fri Feb 23 2001 Preston Brown <pbrown@redhat.com>
+
+* Wed Feb 21 2001 Bill Nottingham <notting@redhat.com>
+- fix inputrc, Yet Again. (#28617)
+
+* Thu Feb 15 2001 Bill Nottingham <notting@redhat.com>
+- add in uidgid file, put it in %doc
+
+* Wed Feb  7 2001 Adrian Havill <havill@redhat.com>
+- bindkey for delete in the case of tcsh
+
+* Wed Feb  7 2001 Bill Nottingham <notting@redhat.com>
+- add some more stuff to /etc/services (#25396, patch from
+  <pekkas@netcore.fi>)
+
+* Tue Feb  6 2001 Nalin Dahyabhai <nalin@redhat.com>
+- add gii/tcp = 616 for gated
+
+* Tue Jan 30 2001 Bill Nottingham <notting@redhat.com>
+- wrap some inputrc settings with tests for mode, term (#24117)
+
+* Mon Jan 29 2001 Bill Nottingham <notting@redhat.com>
+- overhaul /etc/protocols (#18530)
+- add port 587 to /etc/services (#25001)
+- add corbaloc (#19581)
+- don't set /usr/X11R6/bin in $PATH if it's already set (#19968)
+
+* Fri Dec  1 2000 Nalin Dahyabhai <nalin@redhat.com>
+- Clean up /etc/services, separating registered numbers from unregistered
+  ("squatted") numbers, and adding some.
+
+* Mon Nov 20 2000 Bernhard Rosenkraenzer <bero@redhat.com>
+- Add smtps (465/tcp) and submission (587/tcp) to /etc/services for TLS
+  support (postfix >= 20001030-2)
+
 * Sun Aug  6 2000 Bill Nottingham <notting@redhat.com>
 - /var/log/lastlog is %config(noreplace) (#15412)
 - some of the various %verify changes (#14819)
