@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.7
+Version: 2.5.8
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -56,6 +56,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Tue Nov 20 2001 Than Ngo <than@redhat.com> 2.5.8-1
+- check id command if it exists
+
 * Mon Aug 27 2001 Preston Brown <pbrown@redhat.com>
 - add ext3 to /etc/filesystems
 
