@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.19
+Version: 2.5.20
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -61,6 +61,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Thu Aug 29 2002 Bill Nottingham <notting@redhat.com> 2.5.20-1
+- shopt -s checkwinsize everywhere
+
 * Wed Aug 28 2002 Preston Brown <pbrown@redhat.com> 2.5.19-1
 - fix bug #61129 (~ substitution)
 
