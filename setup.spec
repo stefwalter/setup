@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.36
-Release: 1
+Version: 2.5.37
+Release: 2
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Wed Oct 27 2004 Bill Nottingham <notting@redhat.com> 2.5.37-1
+- fix inconsistency in profile.d handling (#136859, <agrajag@dragaera.net>)
+
 * Fri Oct  8 2004 Bill Nottingham <notting@redhat.com> 2.5.36-1
 - fix duplicate alias
 
