@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
 Version: 2.5.31
-Release: 1
+Release: 1.1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -67,6 +67,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Fri Feb 13 2004 Elliot Lee <sopwith@redhat.com>
+- rebuilt
+
 * Mon Jan 26 2004 Bill Nottingham <notting@redhat.com> 2.5.31-1
 - move /etc/aliases here
 
