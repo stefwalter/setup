@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.25
-Release: 1
+Version: 2.5.27
+Release: 1.1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -58,7 +58,7 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/bashrc
 %config(noreplace) /etc/profile
 %config /etc/protocols
-%attr(0600,root,root) %config(missingok) /etc/securetty
+%attr(0600,root,root) %config(noreplace,missingok) /etc/securetty
 %config(noreplace) /etc/csh.login
 %config(noreplace) /etc/csh.cshrc
 %dir /etc/profile.d
@@ -66,6 +66,12 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Tue Sep  2 2003 Bill Nottingham <notting@redhat.com> 2.5.27-1
+- securetty should be noreplace (#103585)
+
+* Fri Mar 14 2003 Bill Nottingham <notting@redhat.com> 2.5.26-1
+- clean up some typos in /etc/services (#86129)
+
 * Mon Feb 17 2003 Florian La Roche <Florian.LaRoche@redhat.de>
 - add "console" to /etc/securetty for mainframe
 
