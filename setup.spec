@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.34
-Release: 2
+Version: 2.5.35
+Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -28,6 +28,8 @@ rm -f %{buildroot}/etc/uidgid
 mkdir -p %{buildroot}/var/log
 touch %{buildroot}/etc/{shadow,gshadow}
 touch %{buildroot}/var/log/lastlog
+touch %{buildroot}/etc/environment
+chmod 0644 %{buildroot}/etc/environment
 chmod 0400 %{buildroot}/etc/{shadow,gshadow}
 chmod 0400 %{buildroot}/var/log/lastlog
 
@@ -50,6 +52,7 @@ rm -rf %{buildroot}
 %verify(not md5 size mtime) %config(noreplace) /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/aliases
+%config(noreplace) /etc/environment
 %config(noreplace) /etc/filesystems
 %config(noreplace) /etc/host.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.allow
@@ -68,7 +71,10 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
-* Mon Sep 28 2004 Rik van Riel <riel@redhat.com> 2.5.34-2
+* Tue Sep 28 2004 Bill Nottingham <notting@redhat.com> 2.5.35-1
+- add /etc/environment
+
+* Mon Sep 27 2004 Rik van Riel <riel@redhat.com> 2.5.34-2
 - mark /etc/services config(noreplace) (#133683)
 
 * Thu Sep 23 2004 Bill Nottingham <notting@redhat.com> 2.5.34-1
