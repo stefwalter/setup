@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.6
+Version: 2.5.7
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -56,6 +56,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Aug 27 2001 Preston Brown <pbrown@redhat.com>
+- add ext3 to /etc/filesystems
+
 * Mon Aug 20 2001 Bill Nottingham <notting@redhat.com>
 - change FTP user's home dir to /var/ftp (#52091)
 - %%ghost /etc/shadow, /etc/gshadow
