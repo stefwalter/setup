@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.35
+Version: 2.5.36
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Fri Oct  8 2004 Bill Nottingham <notting@redhat.com> 2.5.36-1
+- fix duplicate alias
+
 * Tue Sep 28 2004 Bill Nottingham <notting@redhat.com> 2.5.35-1
 - add /etc/environment
 
