@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
 Version: 2.4.7
-Release: 1p
+Release: 2
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -23,9 +23,6 @@ cp -ar * %{buildroot}/etc
 rm -f %{buildroot}/etc/uidgid
 mkdir -p %{buildroot}/var/log
 cp /dev/null %{buildroot}/var/log/lastlog
-
-# the AS/400 has to log in on /dev/console
-echo console >> %{buildroot}/etc/securetty
 
 %clean
 rm -rf %{buildroot}
@@ -53,6 +50,11 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Thu Jun 13 2001 Philip Copeland <bryce@redhat.com>
+- added in ttyS0 as a valid port for root to login
+  from when we do serial console installs
+  (request from Compaq)
+
 * Sat Apr  7 2001 Preston Brown <pbrown@redhat.com>
 - revert control-arrow forward/backward word (broken)
 
