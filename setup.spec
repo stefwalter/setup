@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.33
+Version: 2.5.34
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -68,6 +68,23 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Thu Sep 23 2004 Bill Nottingham <notting@redhat.com> 2.5.34-1
+- add dict (#107807)
+- add cyrus services (#118832)
+- move delete-char binding for csh (#113682)
+- do the same path munging for csh as for bash (#57708)
+- add postfix aliases (#117661)
+- fix bashrc login shell check (#104491)
+- add odmr to services (#101098)
+- add distcc to services (#91535)
+- add xterm forware/backward word bindings (#80860)
+
+* Mon May 24 2004 Bill Nottingham <notting@redhat.com>
+- make pathmunge available for profile.d scripts (#123621)
+
+* Wed May 19 2004 Joe Orton <jorton@redhat.com> 2.5.33-2
+- add IANA Register Port for svn to /etc/services (#122863)
+
 * Wed May  5 2004 Nalin Dahyabhai <nalin@redhat.com> 2.5.33-1
 - fix syntax error in csh.cshrc
 
