@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.11
+Version: 2.5.12
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -60,6 +60,10 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Wed Apr  3 2002 Bill Nottingham <notting@redhat.com> 2.5.12-1
+- fix misformatted comment in /etc/services, allocate uid/gid for
+  frontpage
+
 * Thu Mar 28 2002 Bill Nottingham <notting@redhat.com> 2.5.11-1
 - add newline in /etc/shells (#62271)
 
