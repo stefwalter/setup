@@ -1,13 +1,13 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.12
+Version: 2.5.18
 Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-root
 BuildArchitectures: noarch
-Conflicts: initscripts < 4.26 bash <= 2.0.4-21 
+Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
 
 %description
 The setup package contains a set of important system configuration and
@@ -60,6 +60,29 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Wed Aug 15 2002 Jens Petersen <petersen@redhat.com> 2.5.18-1
+- bring back the screen case in /etc/bashrc, since /etc/screenrc no
+  longer sets defhstatus (#60596, #60597)
+
+* Sun Aug 11 2002 Florian La Roche <Florian.LaRoche@redhat.de> 2.5.17-1
+- add "set mark-symlinked-directories on" to /etc/inputrc
+
+* Mon Jul 22 2002 Phil Knirsch <pknirsch@redhat.com> 2.5.16-2
+- Added shopt -s checkwinsize to /etc/bashrc for xterm resizing
+
+* Fri Jul 19 2002 Jens Petersen <petersen@redhat.com> 2.5.16-1
+- dont special case screen in /etc/bashrc, since it overrides the user's
+   screenrc title setting (#60596)
+
+* Thu Jul 18 2002 Florian La Roche <Florian.LaRoche@redhat.de> 2.5.14-1
+- move home dir of "news" to /etc/news
+
+* Tue May 28 2002 Nalin Dahyabhai <nalin@redhat.com> 2.5.13-1
+- allocate uid/gid for privilege-separated sshd
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com> 2.5.12-2
+- automated rebuild
+
 * Wed Apr  3 2002 Bill Nottingham <notting@redhat.com> 2.5.12-1
 - fix misformatted comment in /etc/services, allocate uid/gid for
   frontpage
