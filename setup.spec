@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.8
+Version: 2.5.11
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -15,6 +15,10 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+
+%build
+# Run any sanity checks.
+./serviceslint services
 
 %install
 rm -rf %{buildroot}
@@ -56,11 +60,32 @@ rm -rf %{buildroot}
 %config(noreplace) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
-* Tue Nov 20 2001 Than Ngo <than@redhat.com> 2.5.8-1
-- check id command if it exists
+* Thu Mar 28 2002 Bill Nottingham <notting@redhat.com> 2.5.11-1
+- add newline in /etc/shells (#62271)
 
-* Mon Aug 27 2001 Preston Brown <pbrown@redhat.com>
-- add ext3 to /etc/filesystems
+* Thu Mar 28 2002 Nalin Dahyabhai <nalin@redhat.com> 2.5.10-1
+- allocate uid for the vcsa user
+
+* Tue Mar 12 2002 Bill Nottingham <notting@redhat.com> 2.5.9-1
+- re-add ext3 to /etc/filesystems
+
+* Mon Mar 11 2002 Bill Nottingham <notting@redhat.com> 2.5.8-1
+- add nologin to /etc/shells (#53963)
+- fix some quoting issues (#59627)
+- fix screen status line (#60596)
+- fix path regexps (#59624)
+- move profile.d stuff to csh.cshrc (#59946)
+
+* Fri Mar  8 2002 Nalin Dahyabhai <nalin@redhat.com>
+- add bprd, bpdbm, bpjava-msvc, vnetd, bpcd, and vopied to /etc/services
+
+* Tue Sep 25 2001 Nalin Dahyabhai <nalin@redhat.com>
+- change rmtcfg to an alias for bvcontrol, which is a registered name
+
+* Mon Sep 17 2001 Nalin Dahyabhai <nalin@redhat.com> 2.5.7-1
+- add entries to services (ipp, wnn4, and so on)
+- try to remove duplicates in services (remove nameserver as alias for domain,
+  and readnews as alias for netnews)
 
 * Mon Aug 20 2001 Bill Nottingham <notting@redhat.com>
 - change FTP user's home dir to /var/ftp (#52091)
