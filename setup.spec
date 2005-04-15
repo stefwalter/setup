@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.40
+Version: 2.5.41
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Fri Apr 15 2005 Bill Nottingham <notting@redhat.com> 2.5.41-1
+- get rid of 'id' error messages if there is no /usr (#142707)
+
 * Mon Jan 31 2005 Bill Nottingham <notting@redhat.com> 2.5.40-1
 - have similar prompt changes for su to root in tcsh as in bash (#143826)
 
