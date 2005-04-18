@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.41
+Version: 2.5.42
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -68,9 +68,12 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/csh.cshrc
 %dir /etc/profile.d
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
-%ghost %verify(not md5 size mtime) /var/log/lastlog
+%ghost %attr(0400,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Apr 18 2005 Bill Nottingham <notting@redhat.com> 2.5.42-1
+- fix lastlog conflict (#155256)
+
 * Fri Apr 15 2005 Bill Nottingham <notting@redhat.com> 2.5.41-1
 - get rid of 'id' error messages if there is no /usr (#142707)
 
