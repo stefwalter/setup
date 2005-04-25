@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.42
+Version: 2.5.43
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 %ghost %attr(0400,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Apr 25 2005 Bill Nottingham <notting@redhat.com> 2.5.43-1
+- remove mailman aliases (#155841)
+
 * Mon Apr 18 2005 Bill Nottingham <notting@redhat.com> 2.5.42-1
 - fix lastlog conflict (#155256)
 
