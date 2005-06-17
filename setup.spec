@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.44
+Version: 2.5.45
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -71,6 +71,9 @@ rm -rf %{buildroot}
 %ghost %attr(0400,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Fri Jun 17 2005 Bill Nottingham <notting@redhat.com> 2.5.45-1
+- ksh doesn't implement EUID/UID. Work around that. (#160731)
+
 * Thu May 19 2005 Bill Nottingham <notting@redhat.com> 2.5.44-1
 - fix csh.cshrc when -e is used (#158265)
 
