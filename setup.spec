@@ -1,12 +1,13 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.45
+Version: 2.5.46
 Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-root
 BuildArchitectures: noarch
+BuildRequires: bash tcsh
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
 
 %description
@@ -71,6 +72,10 @@ rm -rf %{buildroot}
 %ghost %attr(0400,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Mon Jun 20 2005 Bill Nottingham <notting@redhat.com> 2.5.46-1
+- add buildrequires on bash, tcsh (#161016)
+- move core dump size setting from csh.login to csh.cshrc (#156914) 
+
 * Fri Jun 17 2005 Bill Nottingham <notting@redhat.com> 2.5.45-1
 - ksh doesn't implement EUID/UID. Work around that. (#160731)
 
