@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.46
+Version: 2.5.47
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -32,7 +32,7 @@ touch %{buildroot}/var/log/lastlog
 touch %{buildroot}/etc/environment
 chmod 0644 %{buildroot}/etc/environment
 chmod 0400 %{buildroot}/etc/{shadow,gshadow}
-chmod 0400 %{buildroot}/var/log/lastlog
+chmod 0644 %{buildroot}/var/log/lastlog
 
 # remove unpackaged files from the buildroot
 rm -f %{buildroot}/etc/Makefile
@@ -69,9 +69,12 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/csh.cshrc
 %dir /etc/profile.d
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
-%ghost %attr(0400,root,root) %verify(not md5 size mtime) /var/log/lastlog
+%ghost %attr(0644,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Tue Sep  6 2005 Bill Nottingham <notting@redhat.com> 2.5.47-1
+- make lastlog 0644  (#167200)
+
 * Mon Jun 20 2005 Bill Nottingham <notting@redhat.com> 2.5.46-1
 - add buildrequires on bash, tcsh (#161016)
 - move core dump size setting from csh.login to csh.cshrc (#156914) 
