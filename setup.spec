@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
 Version: 2.5.47
-Release: 1
+Release: 1.1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
