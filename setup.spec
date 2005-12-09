@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
 Version: 2.5.47
-Release: 1.1
+Release: 1.1.1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 %ghost %attr(0644,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
+* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
+- rebuilt
+
 * Tue Sep  6 2005 Bill Nottingham <notting@redhat.com> 2.5.47-1
 - make lastlog 0644  (#167200)
 
