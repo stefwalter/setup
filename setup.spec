@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.47
-Release: 1.1.1
+Version: 2.5.48
+Release: 1
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
@@ -58,7 +58,7 @@ rm -rf %{buildroot}
 %config(noreplace) /etc/host.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.allow
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.deny
-%verify(not md5 size mtime) %config /etc/motd
+%verify(not md5 size mtime) %config(noreplace) /etc/motd
 %config(noreplace) /etc/printcap
 %config /etc/inputrc
 %config(noreplace) /etc/bashrc
@@ -72,8 +72,18 @@ rm -rf %{buildroot}
 %ghost %attr(0644,root,root) %verify(not md5 size mtime) /var/log/lastlog
 
 %changelog
-* Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
-- rebuilt
+* Tue Jan 31 2006 Phil Knirsch <pknirsch@redhat.com> 2.4.48-1
+- Switched to the new large /etc/services file which fixes #112298, #133683,
+  #166443, #168872, #171228.
+- Fixed pathmunge problem with bashrc (#123621)
+- Removed /usr/X11R6/bin from default PATH (#173856)
+
+* Tue Jan 24 2006 Phil Knirsch <pknirsch@redhat.com>
+- Fixed bug with PROMPT_COMMAND being broken for wierd dirs (#142125)
+- Added hfsplus to know filesystems (#172820)
+
+* Mon Oct 17 2005 Bill Nottingham <notting@redhat.com>
+- make motd noreplace (#170539)
 
 * Tue Sep  6 2005 Bill Nottingham <notting@redhat.com> 2.5.47-1
 - make lastlog 0644  (#167200)
