@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.48
+Version: 2.5.49
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -33,6 +33,8 @@ touch %{buildroot}/etc/environment
 chmod 0644 %{buildroot}/etc/environment
 chmod 0400 %{buildroot}/etc/{shadow,gshadow}
 chmod 0644 %{buildroot}/var/log/lastlog
+touch %{buildroot}/etc/fstab
+touch %{buildroot}/etc/mtab
 
 # remove unpackaged files from the buildroot
 rm -f %{buildroot}/etc/Makefile
@@ -70,8 +72,14 @@ rm -rf %{buildroot}
 %dir /etc/profile.d
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
 %ghost %attr(0644,root,root) %verify(not md5 size mtime) /var/log/lastlog
+%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
+%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Feb 23 2006 Phil Knirsch <pknirsch@redhat.com> 2.4.49-1
+- Really switch to new /etc/services file
+- Added /etc/fstab and /etc/mtab to ownership of setup (#177061)
+
 * Tue Jan 31 2006 Phil Knirsch <pknirsch@redhat.com> 2.4.48-1
 - Switched to the new large /etc/services file which fixes #112298, #133683,
   #166443, #168872, #171228.
