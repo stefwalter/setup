@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.49
+Version: 2.5.50
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,11 +76,14 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
-* Thu Feb 23 2006 Phil Knirsch <pknirsch@redhat.com> 2.4.49-1
+* Tue Mar 21 2006 Florian La Roche <laroche@redhat.com> 2.5.50-1
+- use stricter umask of 022 for all logins
+
+* Thu Feb 23 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.49-1
 - Really switch to new /etc/services file
 - Added /etc/fstab and /etc/mtab to ownership of setup (#177061)
 
-* Tue Jan 31 2006 Phil Knirsch <pknirsch@redhat.com> 2.4.48-1
+* Tue Jan 31 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.48-1
 - Switched to the new large /etc/services file which fixes #112298, #133683,
   #166443, #168872, #171228.
 - Fixed pathmunge problem with bashrc (#123621)
