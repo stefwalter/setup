@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.50
+Version: 2.5.52
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,12 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Jun 19 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.52-1
+- Lock password for root account by default (#182206)
+
+* Wed May 03 2006 Karsten Hopp <karsten@redhat.de>
+- remove gkrellmd from the reserved uid/gid list (#186974)
+
 * Tue Mar 21 2006 Florian La Roche <laroche@redhat.com> 2.5.50-1
 - use stricter umask of 022 for all logins
 
