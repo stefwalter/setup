@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.53
+Version: 2.5.54
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Oct 10 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.54-1
+- Update /etc/protocols to latest officiall IANA version (#209191)
+
 * Thu Jul 27 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.53-1
 - Added utempter gid for new libutempter package (#200240)
 
