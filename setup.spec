@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.54
+Version: 2.5.55
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Oct 11 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.55-1
+- Extended the protocols to include the missing hopopt (#209191)
+
 * Tue Oct 10 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.54-1
 - Update /etc/protocols to latest officiall IANA version (#209191)
 
