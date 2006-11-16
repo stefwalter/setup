@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.55
+Version: 2.5.56
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Nov 16 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.56-1
+- Added an entry for samba and winbind_auth
+
 * Wed Oct 11 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.55-1
 - Extended the protocols to include the missing hopopt (#209191)
 
