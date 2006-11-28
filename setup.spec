@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.56
+Version: 2.5.57
 Release: 1
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Nov 28 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.57-1
+- Revert change for umask in /etc/bashrc (#217523)
+
 * Thu Nov 16 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.56-1
 - Added an entry for samba and winbind_auth
 
