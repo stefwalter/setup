@@ -1,11 +1,11 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.5.57
-Release: 1
+Version: 2.6.1
+Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
-Buildroot: %{_tmppath}/%{name}-root
+Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArchitectures: noarch
 BuildRequires: bash tcsh
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Nov 28 2006 Phil Knirsch <pknirsch@redhat.com> 2.6.1-1.fc7
+- Update version and rebuilt
+
 * Tue Nov 28 2006 Phil Knirsch <pknirsch@redhat.com> 2.5.57-1
 - Revert change for umask in /etc/bashrc (#217523)
 
