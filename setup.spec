@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.1
+Version: 2.6.2
 Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Dec 12 2006 Phil Knirsch <pknirsch@redhat.com> 2.6.2-1.fc7
+- Updated uidgid for split of pcap into arpwatcher and tcpdump.
+
 * Tue Nov 28 2006 Phil Knirsch <pknirsch@redhat.com> 2.6.1-1.fc7
 - Update version and rebuilt
 
