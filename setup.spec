@@ -1,12 +1,12 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.2
+Version: 2.6.3
 Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildArchitectures: noarch
+BuildArch: noarch
 BuildRequires: bash tcsh
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Mar 12 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.3-1
+- Changed winbind_auth to wbpriv by request of the samba maintainer
+
 * Tue Dec 12 2006 Phil Knirsch <pknirsch@redhat.com> 2.6.2-1.fc7
 - Updated uidgid for split of pcap into arpwatcher and tcpdump.
 
