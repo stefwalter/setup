@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.3
+Version: 2.6.4
 Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Apr 18 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.4-1
+- Modified the 111/[tcp/udp] entries to work with rpcbind (#236639)
+
 * Mon Mar 12 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.3-1
 - Changed winbind_auth to wbpriv by request of the samba maintainer
 
