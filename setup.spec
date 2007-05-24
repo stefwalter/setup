@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.4
+Version: 2.6.6
 Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
@@ -76,6 +76,15 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu May 24 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.6-1
+- Added another set of proposed changes to /etc/csh.cshrc (#199817)
+- Added missing documentation in /etc/hosts.[allow|deny] (#157053)
+
+* Wed May 23 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.5-1
+- Fixed tcsh behaviour for non login shells (#191233)
+- Fixed umask setting for tcsh to behave identical to bash logins (#199817)
+- Added ipv6-crypt and ipv6-auth for backwards compatibility (#210546)
+
 * Wed Apr 18 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.4-1
 - Modified the 111/[tcp/udp] entries to work with rpcbind (#236639)
 
