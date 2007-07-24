@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.8
+Version: 2.6.9
 Release: 1%{?dist}
 License: public domain
 Group: System Environment/Base
@@ -76,8 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
-* Tue Jul 24 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.8-1
+* Tue Jul 24 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.9-1
 - Assigned uid 87 for PolicyKit package (#244950)
+- Fixed precmd fix if TERM isn't set (#242732)
 
 * Wed Jun 06 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.7-1
 - Fixed precmd setting to behave like bash for (t)csh (#242732)
