@@ -1,8 +1,8 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.9
+Version: 2.6.10
 Release: 1%{?dist}
-License: public domain
+License: Public Domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Aug 16 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.10-1
+- License review and update
+
 * Tue Jul 24 2007 Phil Knirsch <pknirsch@redhat.com> 2.6.9-1
 - Assigned uid 87 for PolicyKit package (#244950)
 - Fixed precmd fix if TERM isn't set (#242732)
