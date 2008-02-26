@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.11
+Version: 2.6.12
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Feb 26 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.12-1
+- Corrected wrong /etc/profile.d behaviour for non-interactive bash and tcsh
+
 * Fri Feb 22 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.11-1
 - Fixed problem with /etc/profile.d/* and non-interactive tcsh (#299221)
 - Fixed xterm -title problem (#387581)
