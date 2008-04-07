@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.12
+Version: 2.6.14
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -76,6 +76,15 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Apr 07 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.14-1
+- Updated /etc/services to latest IANA version (#315571)
+
+* Fri Apr 04 2008 Phil Knirsch <pknirsch@redhat.com>
+- Fixed a problem with the new prompt for tcsh and screen terminal (#438550)
+
+* Thu Mar 20 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.13-1
+- Drop the wrong precmd for csh for xterm and screen terminals
+
 * Tue Feb 26 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.12-1
 - Corrected wrong /etc/profile.d behaviour for non-interactive bash and tcsh
 
