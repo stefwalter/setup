@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files.
 Name: setup
-Version: 2.6.16
+Version: 2.7.1
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -76,6 +76,10 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Fri Jul 25 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.1-1
+- Bump to 2.7.1 to avoid version problems with F-9
+- Removed group news as well (#437462)
+
 * Tue Jun 17 2008 Phil Knirsch <pknirsch@redhat.com> 2.6.16-1
 - Dropped user news from default /etc/passwd (#437462)
 
