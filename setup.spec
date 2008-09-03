@@ -1,6 +1,6 @@
-Summary: A set of system configuration and setup files.
+Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.7.1
+Version: 2.7.3
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -76,6 +76,13 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Sep 03 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.3-1
+- Added SBinSanity patch as an approved feature (#458176)
+
+* Wed Aug 06 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.2-1
+- Added uidgid pair for condor
+- Added uidgid pair for trousers
+
 * Fri Jul 25 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.1-1
 - Bump to 2.7.1 to avoid version problems with F-9
 - Removed group news as well (#437462)
