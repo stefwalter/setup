@@ -1,13 +1,13 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.7.3
+Version: 2.7.4
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-BuildRequires: bash tcsh
+BuildRequires: bash tcsh perl
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
 
 %description
@@ -76,6 +76,10 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Oct 09 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.4-1
+- Include new serviceslint for speedup (#465642)
+- Cleaned up services due to newly discovered bugs in it with new serviceslint
+
 * Wed Sep 03 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.3-1
 - Added SBinSanity patch as an approved feature (#458176)
 
