@@ -1,14 +1,15 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
-Conflicts: initscripts < 4.26, bash <= 2.0.4-21 
+Conflicts: initscripts < 4.26, bash <= 2.0.4-21
+Patch1: setup-2.7.4.patch
 
 %description
 The setup package contains a set of important system configuration and
@@ -16,6 +17,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 # Run any sanity checks.
@@ -76,6 +78,17 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Nov 18 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.4-2
+- again process profile.d scripts in noninteractive shells,
+  but do not display stderr/stdout messages(#457243)
+- fix wrong prompt for csh/tcsh (#443854)
+- don't show error message about missing hostname in profile
+  (#301481)
+- reserve rquotad port 875 in /etc/services (#455859)
+- export PATH after processing profile.d scripts (#449286)
+- assign gid's for audio (:63) and video (:39) group(#458843),
+  assign uidgid pair (52:52) for puppet (#471918)
+
 * Thu Oct 09 2008 Phil Knirsch <pknirsch@redhat.com> 2.7.4-1
 - Include new serviceslint for speedup (#465642)
 - Cleaned up services due to newly discovered bugs in it with new serviceslint
