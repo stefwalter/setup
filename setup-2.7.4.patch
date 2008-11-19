@@ -145,7 +145,7 @@ diff -urNp setup-2.7.4-orig/uidgid setup-2.7.4/uidgid
  utempter	-	35	-			-		libutempter
  rpm		37	37	/var/lib/rpm		/bin/bash	rpm
  ntp		38	38	/etc/ntp		/sbin/nologin	ntp
-+video		-	39	-			-
++video		-	39	-			-		setup
  dip		-	40      -			-		setup
  mailman		41	41	/var/mailman		/bin/false	mailman
  gdm		42	42	/var/gdm		/bin/bash	gdm
@@ -161,7 +161,7 @@ diff -urNp setup-2.7.4-orig/uidgid setup-2.7.4/uidgid
  piranha		60	60	/etc/sysconfig/ha	/dev/null	piranha
  prelude-manager	61	61	-			/sbin/nologin	prelude-manager
  snortd		62	62	-			/sbin/nologin	snortd
-+audio		-	63	-			-
++audio		-	63	-			-		setup
  condor		64	64	/var/lib/condor		/sbin/nologin	condord
  wine		-	66	-			-		wine
  pegasus		66	65	/var/lib/Pegasus	/sbin/nologin	tog-pegasus
@@ -174,3 +174,17 @@ diff -urNp setup-2.7.4-orig/uidgid setup-2.7.4/uidgid
  polkituser	87	-	/			/sbin/nologin	PolicyKit
  wbpriv		-	88	-			-		samba-common
  postfix		89	89	/var/spool/postfix	/bin/true	postfix
+diff -urNp setup-2.7.4-orig/group setup-2.7.4/group
+--- setup-2.7.4-orig/group	2008-10-10 18:29:39.000000000 +0200
++++ setup-2.7.4/group	2008-11-19 12:14:20.000000000 +0100
+@@ -14,8 +14,10 @@ uucp::14:uucp
+ man::15:
+ games::20:
+ gopher::30:
++video::39:
+ dip::40:
+ ftp::50:
+ lock::54:
++audio::63:
+ nobody::99:
+ users::100:
