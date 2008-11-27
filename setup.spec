@@ -1,17 +1,15 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.7.4
-Release: 3%{?dist}
+Version: 2.7.5
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
-URL: http://www.fedorahosted.org/setup/
+URL: https://fedorahosted.org/setup/
 Source: setup-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21
-Patch1: setup-2.7.4.patch
-Patch2: setup-2.7.4-servicesprotocols.patch
 
 %description
 The setup package contains a set of important system configuration and
@@ -19,8 +17,6 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
 
 %build
 
@@ -83,6 +79,9 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Nov 27 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-1
+- Modified upstream URL, synchronized with upstream git
+
 * Wed Nov 19 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.4-3
 - update protocols to latest IANA list (2008-04-18)
 - update services to latest IANA list (2008-11-17)
