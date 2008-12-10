@@ -1,11 +1,12 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source: setup-%{version}.tar.bz2
+Patch1: setup-2.7.5.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -17,6 +18,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 
@@ -79,6 +81,11 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Dec 10 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-2
+- do not export PATH twice(#449286 NOTABUG revert)
+- do not export INPUTRC(to respect just created ~/.inputrc)
+  (#443717)
+
 * Thu Nov 27 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-1
 - Modified upstream URL, synchronized with upstream git
 
