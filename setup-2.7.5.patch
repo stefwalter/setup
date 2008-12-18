@@ -36,3 +36,14 @@ diff -urNp setup-2.7.5-orig/profile setup-2.7.5/profile
 -
  unset i
  unset pathmunge
+diff -urNp setup-2.7.5-orig/uidgid setup-2.7.5/uidgid
+--- setup-2.7.5-orig/uidgid	2008-11-27 13:03:16.000000000 +0100
++++ setup-2.7.5/uidgid	2008-12-18 12:41:22.000000000 +0100
+@@ -21,6 +21,7 @@ games		12	(100)	/usr/games		/sbin/nologi
+ gopher		13	30	/usr/lib/gopher-data	/sbin/nologin	setup
+ ftp		14	50	/var/ftp		/sbin/nologin	setup
+ man		-	15	-			-		setup
++pkiuser		17	17	/usr/share/pki	/sbin/nologin	pki-ca,rhpki-ca
+ floppy		-	19	-			-		dev,MAKEDEV
+ games		-	20	-			-		setup
+ slocate		-	21	-			-		slocate

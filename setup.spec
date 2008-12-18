@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -10,6 +10,8 @@ Patch1: setup-2.7.5.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
+Requires(post): grep
+
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21
 
 %description
@@ -50,6 +52,14 @@ rm -f %{buildroot}/etc/setup.spec
 %clean
 rm -rf %{buildroot}
 
+%post
+if [ `grep -c video /etc/group` -eq 0 ] ; then
+  groupadd -g 39 video
+fi
+if [ `grep -c audio /etc/group` -eq 0 ] ; then
+  groupadd -g 63 audio
+fi
+
 %files
 %defattr(-,root,root)
 %doc uidgid
@@ -81,6 +91,11 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Dec 18 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-3
+- add pkiuser (17:17) to uidgid
+- temporarily create video/audio group in post section
+  (#476886)
+
 * Wed Dec 10 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-2
 - do not export PATH twice(#449286 NOTABUG revert)
 - do not export INPUTRC(to respect just created ~/.inputrc)
