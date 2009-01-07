@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -10,7 +10,6 @@ Patch1: setup-2.7.5.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
-Requires(post): grep
 
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21
 
@@ -52,13 +51,12 @@ rm -f %{buildroot}/etc/setup.spec
 %clean
 rm -rf %{buildroot}
 
-%post
-if [ `grep -c video /etc/group` -eq 0 ] ; then
-  groupadd -g 39 video
-fi
-if [ `grep -c audio /etc/group` -eq 0 ] ; then
-  groupadd -g 63 audio
-fi
+#remove post script after F10 EOL (and for RHEL-6)
+%post -p <lua>
+if arg[2] > 1 and posix.access("/usr/sbin/groupadd", "x") then
+   os.execute("/usr/sbin/groupadd -g 39 video &>/dev/null")
+   os.execute("/usr/sbin/groupadd -g 63 audio &>/dev/null")
+end
 
 %files
 %defattr(-,root,root)
@@ -91,6 +89,10 @@ fi
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Jan 06 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.5-4
+- use lua language in post to prevent additional
+  dependencies
+
 * Thu Dec 18 2008 Ondrej Vasik <ovasik@redhat.com> 2.7.5-3
 - add pkiuser (17:17) to uidgid
 - temporarily create video/audio group in post section
