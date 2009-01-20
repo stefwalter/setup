@@ -1,12 +1,11 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.7.5
-Release: 4%{?dist}
+Version: 2.7.6
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source: setup-%{version}.tar.bz2
-Patch1: setup-2.7.5.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -19,7 +18,6 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %build
 
@@ -89,6 +87,12 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Jan 20 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.6-1
+- make uidgid file better parseable (synchronize tabs)
+- reserve gid 11 for group cdrom (udev,MAKEDEV)
+- reserve gid 33 for group tape (udev,MAKEDEV)
+- reserve gid 87 for group dialout (udev,MAKEDEV)
+
 * Tue Jan 06 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.5-4
 - use lua language in post to prevent additional
   dependencies
