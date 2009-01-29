@@ -1,11 +1,12 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source: setup-%{version}.tar.bz2
+Patch1: setup-2.7.7-uidgid.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -18,6 +19,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 
@@ -87,6 +89,11 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Jan 29 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-2
+- reserve 87 gid for polkituser (just uid was reserved),
+  reserve 18 gid for dialout(to prevent conflicts with
+  polkituser gid)
+
 * Thu Jan 22 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-1
 - synchronize /etc/services with latest IANA, do not use
   tabs in that file to have consistent output
