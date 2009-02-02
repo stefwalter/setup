@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.7.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -53,13 +53,6 @@ rm -f %{buildroot}/etc/setup.spec
 %clean
 rm -rf %{buildroot}
 
-#remove post script after F10 EOL (and for RHEL-6)
-%post -p <lua>
-if arg[2] > 1 and posix.access("/usr/sbin/groupadd", "x") then
-   os.execute("/usr/sbin/groupadd -g 39 video &>/dev/null")
-   os.execute("/usr/sbin/groupadd -g 63 audio &>/dev/null")
-end
-
 %files
 %defattr(-,root,root)
 %doc uidgid
@@ -91,6 +84,11 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Feb 02 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-4
+- drop <lua> scriptlet completely(audio/video group
+  temporarily created by packages which use it for
+  updates(#477769))
+
 * Fri Jan 30 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-3
 - add support for ctrl+arrow keys in rxvt(#474110)
 
