@@ -1,17 +1,14 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.7.7
-Release: 5%{?dist}
+Version: 2.8.1
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source: setup-%{version}.tar.bz2
-Patch1: setup-2.7.7-uidgid.patch
-Patch2: setup-2.7.7-rxvt.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
-
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21
 
 %description
@@ -20,8 +17,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
+./shadowconvert.sh
 
 %build
 
@@ -35,7 +31,6 @@ mkdir -p %{buildroot}/etc/profile.d
 cp -ar * %{buildroot}/etc
 rm -f %{buildroot}/etc/uidgid
 mkdir -p %{buildroot}/var/log
-touch %{buildroot}/etc/{shadow,gshadow}
 touch %{buildroot}/var/log/lastlog
 touch %{buildroot}/etc/environment
 chmod 0644 %{buildroot}/etc/environment
@@ -48,24 +43,34 @@ touch %{buildroot}/etc/mtab
 rm -f %{buildroot}/etc/Makefile
 rm -f %{buildroot}/etc/serviceslint
 rm -f %{buildroot}/etc/uidgidlint
+rm -f %{buildroot}/etc/shadowconvert.sh
 rm -f %{buildroot}/etc/setup.spec
 
 %clean
 rm -rf %{buildroot}
+
+%postun
+#throw away useless and dangerous update stuff until rpm will be able to
+#handle it ( http://rpm.org/ticket/6 )
+rm -f /etc/passwd.rpmnew
+rm -f /etc/shadow.rpmnew
+rm -f /etc/group.rpmnew
+rm -f /etc/gshadow.rpmnew
 
 %files
 %defattr(-,root,root)
 %doc uidgid
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
-%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
-%ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
+%verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
+%verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
 %verify(not md5 size mtime) %config(noreplace) /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/aliases
 %config(noreplace) /etc/environment
 %config(noreplace) /etc/filesystems
 %config(noreplace) /etc/host.conf
+%verify(not md5 size mtime) %config(noreplace) /etc/hosts
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.allow
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts.deny
 %verify(not md5 size mtime) %config(noreplace) /etc/motd
@@ -84,6 +89,14 @@ rm -rf %{buildroot}
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Thu Feb 26 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.1-1
+- do ship/generate /etc/{shadow,gshadow} files(#483251)
+- do ship default /etc/hosts with setup (#483244)
+- activate multi on (required for IPv6 only localhost
+  recognition out-of-the-box) (#486461)
+- added postun section for cleaning of dangerous .rpmnew
+  files after updates
+
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
