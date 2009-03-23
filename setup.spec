@@ -1,11 +1,11 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
-Source: setup-%{version}.tar.bz2
+Source0: https://fedorahosted.org/releases/s/e/%{name}/%{name}-%{version}.tar.bz2
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -89,6 +89,9 @@ rm -f /etc/gshadow.rpmnew
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Mar 23 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.1-2
+- fix sources syntax, add sources URL (#226412)
+
 * Thu Feb 26 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.1-1
 - do ship/generate /etc/{shadow,gshadow} files(#483251)
 - do ship default /etc/hosts with setup (#483244)
