@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.8.1
-Release: 2%{?dist}
+Version: 2.8.2
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -30,6 +30,7 @@ rm -rf %{buildroot}
 mkdir -p %{buildroot}/etc/profile.d
 cp -ar * %{buildroot}/etc
 rm -f %{buildroot}/etc/uidgid
+rm -f %{buildroot}/etc/COPYING
 mkdir -p %{buildroot}/var/log
 touch %{buildroot}/var/log/lastlog
 touch %{buildroot}/etc/environment
@@ -59,7 +60,7 @@ rm -f /etc/gshadow.rpmnew
 
 %files
 %defattr(-,root,root)
-%doc uidgid
+%doc uidgid COPYING
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
 %verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
@@ -89,6 +90,10 @@ rm -f /etc/gshadow.rpmnew
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue Mar 24 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.2-1
+- ship COPYING file, update protocols and services
+  to latest IANA
+
 * Mon Mar 23 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.1-2
 - fix sources syntax, add sources URL (#226412)
 
