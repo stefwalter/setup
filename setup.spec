@@ -1,11 +1,12 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source0: https://fedorahosted.org/releases/s/e/%{name}/%{name}-%{version}.tar.bz2
+Patch1: setup-2.8.2-uidgid.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -17,6 +18,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+%patch1 -p1
 ./shadowconvert.sh
 
 %build
@@ -90,6 +92,9 @@ rm -f /etc/gshadow.rpmnew
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Mar 25 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.2-2
+- reserve uid 65 for nslcd (will share group 55 ldap, #491899)
+
 * Tue Mar 24 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.2-1
 - ship COPYING file, update protocols and services
   to latest IANA

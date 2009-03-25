@@ -1,0 +1,11 @@
+diff -urNp setup-2.8.2-orig/uidgid setup-2.8.2/uidgid
+--- setup-2.8.2-orig/uidgid	2009-03-24 12:02:57.000000000 +0100
++++ setup-2.8.2/uidgid	2009-03-25 14:32:50.000000000 +0100
+@@ -70,6 +70,7 @@ prelude-manager	61	61	-		/sbin/nologin	p
+ snortd	62	62	-		/sbin/nologin	snortd
+ audio	-	63	-		-	setup
+ condor	64	64	/var/lib/condor		/sbin/nologin	condord
++nslcd	65	(55)	/		/sbin/nologin	nslcd
+ wine	-	66	-		-	wine
+ pegasus	66	65	/var/lib/Pegasus		/sbin/nologin	tog-pegasus
+ webalizer	67	67	/var/www/html/usage		/sbin/nologin	webalizer
