@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.8.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -50,13 +50,16 @@ rm -f %{buildroot}/etc/setup.spec
 %clean
 rm -rf %{buildroot}
 
-%postun
+
 #throw away useless and dangerous update stuff until rpm will be able to
 #handle it ( http://rpm.org/ticket/6 )
-rm -f /etc/passwd.rpmnew
-rm -f /etc/shadow.rpmnew
-rm -f /etc/group.rpmnew
-rm -f /etc/gshadow.rpmnew
+%postun -p <lua>
+if arg[2] > 1 and posix.access("/bin/rm", "x") then
+   os.execute("rm -f /etc/passwd.rpmnew")
+   os.execute("rm -f /etc/shadow.rpmnew")
+   os.execute("rm -f /etc/group.rpmnew")
+   os.execute("rm -f /etc/gshadow.rpmnew")
+end
 
 %files
 %defattr(-,root,root)
@@ -90,6 +93,10 @@ rm -f /etc/gshadow.rpmnew
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Apr 22 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.3-2
+- rewrite postun scriptlet to <lua> to prevent /bin/sh
+  dependency
+
 * Fri Apr 10 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.3-1
 - do not disable coredumps in profile/csh.cshrc scripts,
   coredumps already disabled in rawhide's RLIMIT_CORE(#495035)
