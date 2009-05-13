@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.8.3
-Release: 2%{?dist}
+Version: 2.8.4
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -50,15 +50,11 @@ rm -f %{buildroot}/etc/setup.spec
 %clean
 rm -rf %{buildroot}
 
-
 #throw away useless and dangerous update stuff until rpm will be able to
 #handle it ( http://rpm.org/ticket/6 )
-%postun -p <lua>
-if arg[2] > 1 and posix.access("/bin/rm", "x") then
-   os.execute("rm -f /etc/passwd.rpmnew")
-   os.execute("rm -f /etc/shadow.rpmnew")
-   os.execute("rm -f /etc/group.rpmnew")
-   os.execute("rm -f /etc/gshadow.rpmnew")
+%post -p <lua>
+for i, name in ipairs({"passwd", "shadow", "group", "gshadow"}) do
+     os.remove("/etc/"..name..".rpmnew")
 end
 
 %files
@@ -93,6 +89,11 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Tue May 12 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.4-1
+- add oprofile (16:16) to uidgid
+- use os.remove instead of os.execute in lua post
+  - no dependency on /bin/sh (thanks Panu Matilainen)
+
 * Wed Apr 22 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.3-2
 - rewrite postun scriptlet to <lua> to prevent /bin/sh
   dependency
@@ -118,6 +119,7 @@ end
   recognition out-of-the-box) (#486461)
 - added postun section for cleaning of dangerous .rpmnew
   files after updates
+- make profile and bashrc more portable (ksh, #487419)
 
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.7.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
@@ -128,7 +130,7 @@ end
   updates(#477769))
 
 * Fri Jan 30 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-3
-- add support for ctrl+arrow keys in rxvt(#474110)
+- add support for ctrl+arrow shortcut in rxvt(#474110)
 
 * Thu Jan 29 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.7-2
 - reserve 87 gid for polkituser (just uid was reserved),
@@ -144,7 +146,7 @@ end
   (#346151,#481021)
 
 * Tue Jan 20 2009 Ondrej Vasik <ovasik@redhat.com> 2.7.6-1
-- make uidgid file better parseable (synchronize tabs)
+- make uidgid file better parsable (synchronize tabs)
 - reserve gid 11 for group cdrom (udev,MAKEDEV)
 - reserve gid 33 for group tape (udev,MAKEDEV)
 - reserve gid 87 for group dialout (udev,MAKEDEV)
