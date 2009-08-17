@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.8.7
-Release: 2%{?dist}
+Version: 2.8.8
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -58,12 +58,12 @@ for i, name in ipairs({"passwd", "shadow", "group", "gshadow"}) do
 end
 
 %files
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %doc uidgid COPYING
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
-%verify(not md5 size mtime) %config(noreplace,missingok) /etc/shadow
-%verify(not md5 size mtime) %config(noreplace,missingok) /etc/gshadow
+%verify(not md5 size mtime) %attr(0000,root,root) %config(noreplace,missingok) /etc/shadow
+%verify(not md5 size mtime) %attr(0000,root,root) %config(noreplace,missingok) /etc/gshadow
 %verify(not md5 size mtime) %config(noreplace) /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/aliases
@@ -89,6 +89,10 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Mon Aug 17 2009 Ondrej Vasik <ovasik@redhat.com> 2.8.8-1
+- change permissions on /etc/shadow and /etc/gshadow to 0000 and
+  use capabilities for them(#517577)
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
