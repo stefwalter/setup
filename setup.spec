@@ -91,6 +91,9 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Fri Mar 26 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.16-2
+- fix not set path for csh shell caused by 2.8.16 update
+
 * Fri Mar 26 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.16-1
 - drop X11R6 hierarchy dir from tcsh path (#576940)
 - update services to latest IANA
