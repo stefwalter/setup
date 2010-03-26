@@ -1,11 +1,12 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.8.16
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source0: https://fedorahosted.org/releases/s/e/%{name}/%{name}-%{version}.tar.bz2
+Patch1: setup-cshpath.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -17,6 +18,7 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
+%patch1 -p1
 ./shadowconvert.sh
 
 %build
