@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.8.16
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -91,6 +91,9 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Fri Mar 26 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.16-3
+- bad ugly double-thirteen friday(fix previous badfix)
+
 * Fri Mar 26 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.16-2
 - fix not set path for csh shell caused by 2.8.16 update
 
