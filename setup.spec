@@ -1,12 +1,11 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.8.16
-Release: 3%{?dist}
+Version: 2.8.17
+Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
 Source0: https://fedorahosted.org/releases/s/e/%{name}/%{name}-%{version}.tar.bz2
-Patch1: setup-cshpath.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 BuildRequires: bash tcsh perl
@@ -18,7 +17,6 @@ setup files, such as passwd, group, and profile.
 
 %prep
 %setup -q
-%patch1 -p1
 ./shadowconvert.sh
 
 %build
@@ -66,21 +64,21 @@ end
 %verify(not md5 size mtime) %config(noreplace) /etc/group
 %verify(not md5 size mtime) %attr(0000,root,root) %config(noreplace,missingok) /etc/shadow
 %verify(not md5 size mtime) %attr(0000,root,root) %config(noreplace,missingok) /etc/gshadow
-%verify(not md5 size mtime) %config(noreplace) /etc/services
+%config(noreplace) /etc/services
 %verify(not md5 size mtime) %config(noreplace) /etc/exports
 %config(noreplace) /etc/aliases
 %config(noreplace) /etc/environment
 %config(noreplace) /etc/filesystems
 %config(noreplace) /etc/host.conf
 %verify(not md5 size mtime) %config(noreplace) /etc/hosts
-%verify(not md5 size mtime) %config(noreplace) /etc/hosts.allow
-%verify(not md5 size mtime) %config(noreplace) /etc/hosts.deny
+%config(noreplace) /etc/hosts.allow
+%config(noreplace) /etc/hosts.deny
 %verify(not md5 size mtime) %config(noreplace) /etc/motd
 %config(noreplace) /etc/printcap
 %verify(not md5 size mtime) %config(noreplace) /etc/inputrc
 %config(noreplace) /etc/bashrc
 %config(noreplace) /etc/profile
-%verify(not md5 size mtime) %config(noreplace) /etc/protocols
+%config(noreplace) /etc/protocols
 %attr(0600,root,root) %config(noreplace,missingok) /etc/securetty
 %config(noreplace) /etc/csh.login
 %config(noreplace) /etc/csh.cshrc
@@ -91,6 +89,13 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/mtab
 
 %changelog
+* Wed Mar 31 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.17-1
+- verify md5sum/size/mtime in the case of /etc/hosts.allow
+  and /etc/hosts.deny (#578263)
+- do the same for /etc/services and /etc/protocols, we
+  provide (almost) complete IANA set, so no reason to modify
+  it in most cases outside of setup package
+
 * Fri Mar 26 2010 Ondrej Vasik <ovasik@redhat.com> 2.8.16-3
 - bad ugly double-thirteen friday(fix previous badfix)
 
