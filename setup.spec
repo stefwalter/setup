@@ -1,6 +1,6 @@
 Summary: A set of system configuration and setup files
 Name: setup
-Version: 2.8.32
+Version: 2.8.33
 Release: 1%{?dist}
 License: Public Domain
 Group: System Environment/Base
@@ -89,6 +89,14 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
 
 %changelog
+* Thu May 19 2011 Ondrej Vasik <ovasik@redhat.com> 2.8.33-1
+- reflect the reserved username change of amanda
+  to amandabackup (#700807)
+- drop order hosts,bind from setup, no longer used by
+  glibc (#703049)
+- assign 174:174 uidgid for user/group retrace
+  (abrt retrace-server, #706012)
+
 * Tue Apr 12 2011 Ondrej Vasik <ovasik@redhat.com> 2.8.32-1
 - do not override already set PROMPT_COMMAND envvar(#691425)
 - do not quit uidgidlint after first error, show all
