@@ -93,6 +93,9 @@ end
 * Tue Sep 03 2013 Ondrej Vasik <ovasik@redhat.com> 2.8.72-1
 - change the allocation of 185:185 to wildfly (former jboss-as)
 
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.8.71-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Fri Jun 07 2013 Ondrej Vasik <ovasik@redhat.com> 2.8.71-1
 - fix escape codes for screen (#969429)
 - handle vte terminals in bashrc (#924275)
