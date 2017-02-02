@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.10.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://fedorahosted.org/setup/
@@ -63,7 +63,8 @@ end
 
 %files
 %defattr(-,root,root,-)
-%doc uidgid COPYING
+%license COPYING
+%doc uidgid
 %verify(not md5 size mtime) %config(noreplace) /etc/passwd
 %verify(not md5 size mtime) %config(noreplace) /etc/group
 %verify(not md5 size mtime) %attr(0000,root,root) %config(noreplace,missingok) /etc/shadow
@@ -94,6 +95,9 @@ end
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
 
 %changelog
+* Wed Feb 01 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.10.5-2
+- Add missing %%license macro
+
 * Wed Dec 07 2016 Ondrej Vasik <ovasik@redhat.com> - 2.10.5-1
 - assign uidgid for cassandra(143:143) - (FPC #628)
 
