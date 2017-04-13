@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Checks that passwd exists and root user exists
+# https://www.mankier.com/1/beakerlib#Examples
+BEAKERLIB_DIR=$TESTDIR/artifacts
+. /usr/share/beakerlib/beakerlib.sh
+
+rlJournalStart
+    rlPhaseStartTest
+        rlAssertRpm "setup"
+        rlAssertExists "/etc/passwd"
+        rlAssertGrep "root" "/etc/passwd"
+    rlPhaseEnd
+rlJournalEnd

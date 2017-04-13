@@ -13,6 +13,8 @@ Requires: system-release
 Conflicts: filesystem < 3
 Conflicts: initscripts < 4.26, bash <= 2.0.4-21
 
+Source200: test-passwd
+
 %description
 The setup package contains a set of important system configuration and
 setup files, such as passwd, group, and profile.
@@ -47,6 +49,10 @@ rm -f %{buildroot}/etc/serviceslint
 rm -f %{buildroot}/etc/uidgidlint
 rm -f %{buildroot}/etc/shadowconvert.sh
 rm -f %{buildroot}/etc/setup.spec
+
+# tests
+mkdir -p %{buildroot}/usr/tests/setup
+install %{SOURCE200} %{buildroot}/usr/tests/setup/
 
 %clean
 rm -rf %{buildroot}
@@ -93,6 +99,16 @@ end
 %config(noreplace) %verify(not md5 size mtime) /etc/shells
 %ghost %attr(0644,root,root) %verify(not md5 size mtime) /var/log/lastlog
 %ghost %verify(not md5 size mtime) %config(noreplace,missingok) /etc/fstab
+
+%package tests
+Requires: setup
+Summary: Tests for setup package
+
+%description tests
+Tests for setup package
+
+%files tests
+/usr/tests/
 
 %changelog
 * Wed Feb 01 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.10.5-2
