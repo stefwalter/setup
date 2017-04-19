@@ -2,8 +2,8 @@
 
 # Checks that passwd exists and root user exists
 # https://www.mankier.com/1/beakerlib#Examples
-BEAKERLIB_DIR=$TESTDIR/artifacts
-. /usr/share/beakerlib/beakerlib.sh
+BEAKERLIB=/usr/local/lib/beakerlib
+. /usr/local/lib/beakerlib/beakerlib.sh
 
 rlJournalStart
     rlPhaseStartTest
